@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+
+var http = require('http');
+
+var models = require("../models");
+var app = require('../server.js');
+var i = require('../lib/io.js');
+
+models.sync(function () {
+    var server = http.createServer(app);
+    var io = require("socket.io").listen(server);
+    i.listener(io);
+    server.listen(4242);
+    console.log(4242);
+});
